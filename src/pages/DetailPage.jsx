@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getNote } from "../utils/local-data";
+import { deleteNote, getAllNotes, getNote } from "../utils/local-data";
 import NoteDetail from "../components/NoteDetail";
+import DeleteButton from "../components/DeleteButton";
 
 const DetailPageWrapper = () => {
   const { id } = useParams();
@@ -15,6 +16,21 @@ class DetailPage extends React.Component {
     this.state = {
       note: getNote(props.id),
     };
+
+    this.onDeleteHandler = this.onDeleteHandler.bind(this);
+  }
+
+  onDeleteHandler() {
+    const { id, navigate } = this.props;
+    deleteNote(id);
+
+    this.setState(() => {
+      return {
+        note: getAllNotes(),
+      };
+    });
+
+    navigate("/");
   }
 
   render() {
@@ -22,7 +38,12 @@ class DetailPage extends React.Component {
       return <p>404, Pages Not Found</p>;
     }
 
-    return <NoteDetail {...this.state.note} />;
+    return (
+      <>
+        <NoteDetail {...this.state.note} />
+        <DeleteButton onDelete={this.onDeleteHandler} />
+      </>
+    );
   }
 }
 

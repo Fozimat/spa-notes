@@ -1,7 +1,7 @@
 import React from "react";
 import { showFormattedDate } from "../utils/index";
 
-const NoteDetail = ({ id, title, body, createdAt }) => {
+const NoteDetail = ({ title, body, createdAt }) => {
   return (
     <div className="max-w-screen-xl mx-auto mt-4 py-4">
       <div className="bg-white p-4 rounded-md shadow-md w-full">
