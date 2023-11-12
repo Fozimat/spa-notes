@@ -53,7 +53,7 @@ class NoteInput extends React.Component {
           <input
             type="text"
             id="title"
-            className="mt-1 p-2 border w-full rounded-md"
+            className="mt-1 p-2 border w-full rounded-md  border-gray-300 focus:outline-none focus:border-blue-500"
             placeholder="Masukkan judul..."
             value={this.state.title}
             onChange={this.onTitleChangeEventHandler}
@@ -68,7 +68,7 @@ class NoteInput extends React.Component {
           </label>
           <textarea
             id="body"
-            className="mt-1 p-2 border w-full rounded-md"
+            className="mt-1 p-2 border w-full rounded-md  border-gray-300 focus:outline-none focus:border-blue-500"
             placeholder="Masukkan isi..."
             value={this.state.body}
             onChange={this.onBodyChangeEventHandler}
