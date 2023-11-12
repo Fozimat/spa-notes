@@ -1,5 +1,6 @@
 import React from "react";
 import NoteList from "../components/NoteList";
+import AddButton from "../components/AddButton";
 import { getAllNotes } from "../utils/local-data";
 
 class HomePage extends React.Component {
@@ -18,6 +19,7 @@ class HomePage extends React.Component {
             Catatan Aktif
           </h4>
           <NoteList notes={this.state.notes} />
+          <AddButton />
         </div>
       </section>
     );

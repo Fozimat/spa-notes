@@ -37,14 +37,6 @@ const Navigation = () => {
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <Link
-                className="text-gray-100 hover:text-gray-300 md:p-0 dark:text-white dark:hover:text-red-500"
-                to="/"
-              >
-                Aktif
-              </Link>
-            </li>
-            <li>
-              <Link
                 to="/arsip"
                 className="text-gray-100 hover:text-gray-300 md:p-0 dark:text-white dark:hover:text-red-500"
               >
