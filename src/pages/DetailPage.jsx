@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { deleteNote, getAllNotes, getNote } from "../utils/local-data";
 import NoteDetail from "../components/NoteDetail";
 import DeleteButton from "../components/DeleteButton";
+import NotFoundPage from "../components/NotFoundPage";
 
 const DetailPageWrapper = () => {
   const { id } = useParams();
@@ -35,7 +36,7 @@ class DetailPage extends React.Component {
 
   render() {
     if (this.state.note == undefined) {
-      return <p>404, Pages Not Found</p>;
+      return <NotFoundPage />;
     }
 
     return (
