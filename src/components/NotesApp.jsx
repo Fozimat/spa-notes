@@ -6,6 +6,7 @@ import DetailPageWrapper from "../pages/DetailPage";
 import AddPage from "../pages/AddPage";
 import DevelopmentPage from "./DevelopmentPage.jsx";
 import NotFoundPage from "./NotFoundPage.jsx";
+import { PATHS } from "../utils/constant.js";
 
 const NotesApp = () => {
   return (
@@ -13,11 +14,11 @@ const NotesApp = () => {
       <Navigation />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/note/:id" element={<DetailPageWrapper />} />
-          <Route path="/note/new" element={<AddPage />} />
-          <Route path="/arsip" element={<DevelopmentPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path={PATHS.HOME} element={<HomePage />} />
+          <Route path={PATHS.NOTE_DETAIL} element={<DetailPageWrapper />} />
+          <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
+          <Route path={PATHS.ARSIP} element={<DevelopmentPage />} />
+          <Route path={PATHS.NOT_FOUND} element={<NotFoundPage />} />
         </Routes>
       </main>
     </>
