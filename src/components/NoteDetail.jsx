@@ -1,5 +1,6 @@
 import React from "react";
 import { showFormattedDate } from "../utils/index";
+import PropTypes from "prop-types";
 
 const NoteDetail = ({ title, body, createdAt }) => {
   return (
@@ -13,6 +14,12 @@ const NoteDetail = ({ title, body, createdAt }) => {
       </div>
     </div>
   );
+};
+
+NoteDetail.propTypes = {
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export default NoteDetail;
