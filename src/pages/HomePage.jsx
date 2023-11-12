@@ -4,6 +4,7 @@ import AddButton from "../components/AddButton";
 import { getAllNotes } from "../utils/local-data";
 import SearchBar from "../components/SearchBar";
 import { useSearchParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const HomePageWrapper = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -62,5 +63,10 @@ class HomePage extends React.Component {
     );
   }
 }
+
+HomePage.propTypes = {
+  defaultKeyword: PropTypes.string,
+  keywordChange: PropTypes.func,
+};
 
 export default HomePageWrapper;

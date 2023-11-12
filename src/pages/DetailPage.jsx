@@ -4,6 +4,7 @@ import { deleteNote, getAllNotes, getNote } from "../utils/local-data";
 import NoteDetail from "../components/NoteDetail";
 import DeleteButton from "../components/DeleteButton";
 import NotFoundPage from "../components/NotFoundPage";
+import PropTypes from "prop-types";
 
 const DetailPageWrapper = () => {
   const { id } = useParams();
@@ -47,5 +48,10 @@ class DetailPage extends React.Component {
     );
   }
 }
+
+DetailPage.propTypes = {
+  id: PropTypes.string.isRequired,
+  navigate: PropTypes.func.isRequired,
+};
 
 export default DetailPageWrapper;
