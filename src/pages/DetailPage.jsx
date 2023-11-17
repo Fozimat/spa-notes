@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getNote } from "../utils/network-data";
+import { useNavigate, useParams } from "react-router-dom";
+import { getNote, deleteNote } from "../utils/network-data";
 import NoteDetail from "../components/NoteDetail";
 import NotFoundPage from "../components/NotFoundPage";
+import DeleteButton from "../components/DeleteButton";
 
 const DetailPage = () => {
   const [note, setNote] = useState({});
   const [initializing, setItializing] = useState(true);
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +27,17 @@ const DetailPage = () => {
     fetchData();
   }, [id]);
 
+  const onDeleteHandler = async () => {
+    try {
+      const { error } = await deleteNote(id);
+      if (!error) {
+        navigate("/");
+      }
+    } catch (e) {
+      console.error("Error: ", e);
+    }
+  };
+
   if (initializing) {
     return null;
   }
@@ -36,6 +49,7 @@ const DetailPage = () => {
   return (
     <>
       <NoteDetail {...note} />
+      <DeleteButton onDelete={onDeleteHandler} />
     </>
   );
 };
