@@ -1,89 +1,63 @@
 import React from "react";
 import PropTypes from "prop-types";
+import useInput from "../hooks/useInput";
 
-class NoteInput extends React.Component {
-  constructor(props) {
-    super(props);
+const NoteInput = ({ addNote }) => {
+  const [title, handleTitleChange] = useInput("");
+  const [body, handleBodyChange] = useInput("");
 
-    this.state = {
-      title: "",
-      body: "",
-    };
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const data = { title, body };
+    addNote(data);
+  };
 
-    this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
-    this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
-    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
-  }
-
-  onTitleChangeEventHandler(event) {
-    this.setState(() => {
-      return {
-        title: event.target.value,
-      };
-    });
-  }
-
-  onBodyChangeEventHandler(event) {
-    this.setState(() => {
-      return {
-        body: event.target.value,
-      };
-    });
-  }
-
-  onSubmitEventHandler(event) {
-    event.preventDefault();
-    this.props.addNote(this.state);
-  }
-
-  render() {
-    return (
-      <form
-        className="max-w-screen-xl mx-auto mt-8 p-6 bg-white rounded-md shadow-md"
-        onSubmit={this.onSubmitEventHandler}
-      >
-        <h2 className="text-xl font-semibold mb-4">Tambah Catatan Baru</h2>
-        <div className="mb-4">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Judul:
-          </label>
-          <input
-            type="text"
-            id="title"
-            className="mt-1 p-2 border w-full rounded-md  border-gray-300 focus:outline-none focus:border-blue-500"
-            placeholder="Masukkan judul..."
-            value={this.state.title}
-            onChange={this.onTitleChangeEventHandler}
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="body"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Isi:
-          </label>
-          <textarea
-            id="body"
-            className="mt-1 p-2 border w-full rounded-md  border-gray-300 focus:outline-none focus:border-blue-500"
-            placeholder="Masukkan isi..."
-            value={this.state.body}
-            onChange={this.onBodyChangeEventHandler}
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+  return (
+    <form
+      className="max-w-screen-xl mx-auto mt-8 p-6 bg-white rounded-md shadow-md"
+      onSubmit={onSubmitHandler}
+    >
+      <h2 className="text-xl font-semibold mb-4">Tambah Catatan Baru</h2>
+      <div className="mb-4">
+        <label
+          htmlFor="title"
+          className="block text-sm font-medium text-gray-600"
         >
-          Simpan
-        </button>
-      </form>
-    );
-  }
-}
+          Judul:
+        </label>
+        <input
+          type="text"
+          id="title"
+          className="mt-1 p-2 border w-full rounded-md  border-gray-300 focus:outline-none focus:border-blue-500"
+          placeholder="Masukkan judul..."
+          value={title}
+          onChange={handleTitleChange}
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="body"
+          className="block text-sm font-medium text-gray-600"
+        >
+          Isi:
+        </label>
+        <textarea
+          id="body"
+          className="mt-1 p-2 border w-full rounded-md  border-gray-300 focus:outline-none focus:border-blue-500"
+          placeholder="Masukkan isi..."
+          value={body}
+          onChange={handleBodyChange}
+        />
+      </div>
+      <button
+        type="submit"
+        className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+      >
+        Simpan
+      </button>
+    </form>
+  );
+};
 
 NoteInput.propTypes = {
   addNote: PropTypes.func.isRequired,

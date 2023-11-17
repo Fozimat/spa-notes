@@ -14,9 +14,15 @@ const HomePage = () => {
   });
 
   useEffect(() => {
-    getActiveNotes().then(({ data }) => {
-      setNotes(data);
-    });
+    const fetchNotes = async () => {
+      try {
+        const { data } = await getActiveNotes();
+        setNotes(data);
+      } catch (e) {
+        console.error("Error: ", e);
+      }
+    };
+    fetchNotes();
   }, []);
 
   const onKeywordChangeHandler = (keyword) => {

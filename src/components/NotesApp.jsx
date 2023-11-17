@@ -22,7 +22,7 @@ const NotesApp = () => {
         setAuthedUser(data);
         setItializing(false);
       } catch (e) {
-        console.log("error: ", e);
+        console.error("error: ", e);
       }
     };
     fetchUserLogged();
@@ -57,22 +57,22 @@ const NotesApp = () => {
         </main>
       </>
     );
-  } else {
-    return (
-      <>
-        <Navigation logout={onLogout} />
-        <main>
-          <Routes>
-            <Route path={PATHS.HOME} element={<HomePage />} />
-            <Route path={PATHS.NOTE_DETAIL} element={<DetailPageWrapper />} />
-            <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
-            <Route path={PATHS.ARSIP} element={<DevelopmentPage />} />
-            {/* <Route path={PATHS.NOT_FOUND} element={<NotFoundPage />} /> */}
-          </Routes>
-        </main>
-      </>
-    );
   }
+
+  return (
+    <>
+      <Navigation logout={onLogout} />
+      <main>
+        <Routes>
+          <Route path={PATHS.HOME} element={<HomePage />} />
+          <Route path={PATHS.NOTE_DETAIL} element={<DetailPageWrapper />} />
+          <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
+          <Route path={PATHS.ARSIP} element={<DevelopmentPage />} />
+          {/* <Route path={PATHS.NOT_FOUND} element={<NotFoundPage />} /> */}
+        </Routes>
+      </main>
+    </>
+  );
 };
 
 export default NotesApp;
