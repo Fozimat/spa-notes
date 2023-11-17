@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getNote, deleteNote } from "../utils/network-data";
+import {
+  getNote,
+  deleteNote,
+  archiveNote,
+  unarchiveNote,
+} from "../utils/network-data";
 import NoteDetail from "../components/NoteDetail";
 import NotFoundPage from "../components/NotFoundPage";
 import DeleteButton from "../components/DeleteButton";
+import ArsipButton from "../components/ArsipButton";
+import CancelArsipButton from "../components/CancelArsipButton";
 
 const DetailPage = () => {
   const [note, setNote] = useState({});
@@ -38,6 +45,28 @@ const DetailPage = () => {
     }
   };
 
+  const onArsipHandler = async () => {
+    try {
+      const { error } = await archiveNote(id);
+      if (!error) {
+        navigate("/");
+      }
+    } catch (e) {
+      console.error("Error: ", e);
+    }
+  };
+
+  const onCancelArsipHandler = async () => {
+    try {
+      const { error } = await unarchiveNote(id);
+      if (!error) {
+        navigate("/");
+      }
+    } catch (e) {
+      console.error("Error: ", e);
+    }
+  };
+
   if (initializing) {
     return null;
   }
@@ -50,6 +79,11 @@ const DetailPage = () => {
     <>
       <NoteDetail {...note} />
       <DeleteButton onDelete={onDeleteHandler} />
+      {note.archived ? (
+        <CancelArsipButton onArsip={onCancelArsipHandler} />
+      ) : (
+        <ArsipButton onArsip={onArsipHandler} />
+      )}
     </>
   );
 };

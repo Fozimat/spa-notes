@@ -4,13 +4,14 @@ import { login } from "../utils/network-data";
 import LoginInput from "../components/LoginInput";
 
 const LoginPage = ({ loginSuccess }) => {
-  async function onLogin({ email, password }) {
+  const onLogin = async ({ email, password }) => {
     const { error, data } = await login({ email, password });
 
     if (!error) {
       loginSuccess(data);
     }
-  }
+  };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

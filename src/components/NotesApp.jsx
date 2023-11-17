@@ -10,6 +10,7 @@ import { PATHS } from "../utils/constant.js";
 import RegisterPage from "../pages/RegisterPage.jsx";
 import { getUserLogged, putAccessToken } from "../utils/network-data.js";
 import DetailPage from "../pages/DetailPage";
+import ArsipPage from "../pages/ArsipPage.jsx";
 
 const NotesApp = () => {
   const [authedUser, setAuthedUser] = useState(null);
@@ -67,7 +68,7 @@ const NotesApp = () => {
           <Route path={PATHS.HOME} element={<HomePage />} />
           <Route path={PATHS.NOTE_DETAIL} element={<DetailPage />} />
           <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
-          <Route path={PATHS.ARSIP} element={<DevelopmentPage />} />
+          <Route path={PATHS.ARSIP} element={<ArsipPage />} />
           {/* <Route path={PATHS.NOT_FOUND} element={<NotFoundPage />} /> */}
         </Routes>
       </main>
