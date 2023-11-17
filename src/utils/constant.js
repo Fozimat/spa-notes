@@ -3,7 +3,7 @@ const PATHS = {
     LOGIN: '/login',
     REGISTER: '/register',
     HOME: '/',
-    NOTE_DETAIL: '/note/:id',
+    NOTE_DETAIL: '/notes/:id',
     ADD_NOTE: '/note/new',
     ARSIP: '/arsip',
     NOT_FOUND: '*',

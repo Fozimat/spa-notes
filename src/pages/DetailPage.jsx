@@ -1,57 +1,43 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { deleteNote, getAllNotes, getNote } from "../utils/local-data";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getNote } from "../utils/network-data";
 import NoteDetail from "../components/NoteDetail";
-import DeleteButton from "../components/DeleteButton";
 import NotFoundPage from "../components/NotFoundPage";
-import PropTypes from "prop-types";
 
-const DetailPageWrapper = () => {
+const DetailPage = () => {
+  const [note, setNote] = useState({});
+  const [initializing, setItializing] = useState(true);
+
   const { id } = useParams();
-  const navigate = useNavigate();
-  return <DetailPage id={id} navigate={navigate} />;
-};
 
-class DetailPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      note: getNote(props.id),
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { error, data } = await getNote(id);
+        if (!error) {
+          setNote(data);
+          setItializing(false);
+        }
+      } catch (e) {
+        console.error("Error :", e);
+      }
     };
+    fetchData();
+  }, [id]);
 
-    this.onDeleteHandler = this.onDeleteHandler.bind(this);
+  if (initializing) {
+    return null;
   }
 
-  onDeleteHandler() {
-    const { id, navigate } = this.props;
-    deleteNote(id);
-
-    this.setState(() => {
-      return {
-        note: getAllNotes(),
-      };
-    });
-
-    navigate("/");
+  if (!note.id) {
+    return <NotFoundPage />;
   }
 
-  render() {
-    if (this.state.note == undefined) {
-      return <NotFoundPage />;
-    }
-
-    return (
-      <>
-        <NoteDetail {...this.state.note} />
-        <DeleteButton onDelete={this.onDeleteHandler} />
-      </>
-    );
-  }
-}
-
-DetailPage.propTypes = {
-  id: PropTypes.string.isRequired,
-  navigate: PropTypes.func.isRequired,
+  return (
+    <>
+      <NoteDetail {...note} />
+    </>
+  );
 };
 
-export default DetailPageWrapper;
+export default DetailPage;

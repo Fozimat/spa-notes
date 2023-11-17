@@ -7,7 +7,7 @@ const NoteItem = ({ id, title, body, createdAt }) => {
   return (
     <div className="bg-white p-4 rounded-md shadow-md">
       <h2 className="text-xl font-semibold mb-2">
-        <Link to={`/note/${id}`}>{title}</Link>
+        <Link to={`/notes/${id}`}>{title}</Link>
       </h2>
       <p className="text-gray-500 text-sm mb-2">
         {showFormattedDate(createdAt)}

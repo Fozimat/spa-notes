@@ -3,13 +3,13 @@ import Navigation from "./Navigation";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
-import DetailPageWrapper from "../pages/DetailPage";
 import AddPage from "../pages/AddPage";
 import DevelopmentPage from "./DevelopmentPage.jsx";
 import NotFoundPage from "./NotFoundPage.jsx";
 import { PATHS } from "../utils/constant.js";
 import RegisterPage from "../pages/RegisterPage.jsx";
 import { getUserLogged, putAccessToken } from "../utils/network-data.js";
+import DetailPage from "../pages/DetailPage";
 
 const NotesApp = () => {
   const [authedUser, setAuthedUser] = useState(null);
@@ -65,7 +65,7 @@ const NotesApp = () => {
       <main>
         <Routes>
           <Route path={PATHS.HOME} element={<HomePage />} />
-          <Route path={PATHS.NOTE_DETAIL} element={<DetailPageWrapper />} />
+          <Route path={PATHS.NOTE_DETAIL} element={<DetailPage />} />
           <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
           <Route path={PATHS.ARSIP} element={<DevelopmentPage />} />
           {/* <Route path={PATHS.NOT_FOUND} element={<NotFoundPage />} /> */}
