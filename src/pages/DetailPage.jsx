@@ -11,10 +11,11 @@ import NotFoundPage from "../components/NotFoundPage";
 import DeleteButton from "../components/DeleteButton";
 import ArsipButton from "../components/ArsipButton";
 import CancelArsipButton from "../components/CancelArsipButton";
+import useLoading from "../hooks/useLoading";
 
 const DetailPage = () => {
   const [note, setNote] = useState({});
-  const [initializing, setItializing] = useState(true);
+  const [loading, setLoading] = useLoading();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const DetailPage = () => {
         const { error, data } = await getNote(id);
         if (!error) {
           setNote(data);
-          setItializing(false);
+          setLoading(false);
         }
       } catch (e) {
         console.error("Error :", e);
@@ -67,8 +68,12 @@ const DetailPage = () => {
     }
   };
 
-  if (initializing) {
-    return null;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-solid h-16 w-16"></div>
+      </div>
+    );
   }
 
   if (!note.id) {
