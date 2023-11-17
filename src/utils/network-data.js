@@ -1,5 +1,13 @@
 const BASE_URL = 'https://notes-api.dicoding.dev/v1';
 
+function setItemStorage(key, value) {
+    return localStorage.setItem(key, value);
+}
+
+function getItemStorage(key) {
+    return localStorage.getItem(key);
+}
+
 function getAccessToken() {
     return localStorage.getItem('accessToken');
 }
@@ -161,6 +169,8 @@ async function deleteNote(id) {
 }
 
 export {
+    setItemStorage,
+    getItemStorage,
     getAccessToken,
     putAccessToken,
     login,

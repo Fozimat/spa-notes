@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import useInput from "../hooks/useInput";
+import LocaleContext from "../contexts/LocaleContext";
 
 const RegisterInput = ({ register }) => {
+  const { locale } = useContext(LocaleContext);
   const [name, handleNameChange] = useInput("");
   const [email, handleEmailChange] = useInput("");
   const [password, handlePasswordChange] = useInput("");
@@ -24,7 +26,7 @@ const RegisterInput = ({ register }) => {
   return (
     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
       <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-        Register
+        {locale === "en" ? "Register" : "Daftar"}
       </h1>
       <form
         className="space-y-4 md:space-y-6"
@@ -36,7 +38,7 @@ const RegisterInput = ({ register }) => {
             htmlFor="name"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Name
+            {locale === "en" ? "Name" : "Nama"}
           </label>
           <input
             type="name"
@@ -85,7 +87,7 @@ const RegisterInput = ({ register }) => {
             htmlFor="passwordConfirm"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Confirm Password
+            {locale === "en" ? "Confirm Password" : "Konfirmasi Password"}
           </label>
           <input
             type="password"
@@ -102,15 +104,16 @@ const RegisterInput = ({ register }) => {
           type="submit"
           className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Sign Up
+          {locale === "en" ? "Sign Up" : "Daftar"}
         </button>
         <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
-          Already have account?
+          {locale === "en" ? "Already have account?" : "Sudah punya akun?"}
+
           <Link
             to="/login"
             className="font-medium text-blue-600 hover:underline dark:text-blue-500"
           >
-            Login
+            {locale === "en" ? "Login" : "Masuk"}
           </Link>
         </p>
       </form>

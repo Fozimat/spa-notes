@@ -1,20 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Navigation from "./Navigation";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import AddPage from "../pages/AddPage";
-import DevelopmentPage from "./DevelopmentPage.jsx";
-import NotFoundPage from "./NotFoundPage.jsx";
 import { PATHS } from "../utils/constant.js";
 import RegisterPage from "../pages/RegisterPage.jsx";
-import { getUserLogged, putAccessToken } from "../utils/network-data.js";
+import {
+  getUserLogged,
+  putAccessToken,
+  setItemStorage,
+  getItemStorage,
+} from "../utils/network-data.js";
 import DetailPage from "../pages/DetailPage";
 import ArsipPage from "../pages/ArsipPage.jsx";
+import LocaleContext from "../contexts/LocaleContext.js";
 
 const NotesApp = () => {
+  const [locale, setLocale] = useState(() => getItemStorage("locale") || "en");
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setItializing] = useState(true);
+
+  const toggleLocale = () => {
+    setLocale((prevLocale) => {
+      const newLocale = prevLocale === "en" ? "id" : "en";
+      setItemStorage("locale", newLocale);
+      return newLocale;
+    });
+  };
+
+  const localeContextValue = useMemo(() => {
+    return {
+      locale,
+      toggleLocale,
+    };
+  }, [locale]);
 
   useEffect(() => {
     const fetchUserLogged = async () => {
@@ -47,31 +67,34 @@ const NotesApp = () => {
   if (authedUser === null) {
     return (
       <>
-        <main>
-          <Routes>
-            <Route
-              path={PATHS.ASTERISK}
-              element={<LoginPage loginSuccess={onLoginSuccess} />}
-            />
-            <Route path={PATHS.REGISTER} element={<RegisterPage />} />
-          </Routes>
-        </main>
+        <LocaleContext.Provider value={localeContextValue}>
+          <main>
+            <Routes>
+              <Route
+                path={PATHS.ASTERISK}
+                element={<LoginPage loginSuccess={onLoginSuccess} />}
+              />
+              <Route path={PATHS.REGISTER} element={<RegisterPage />} />
+            </Routes>
+          </main>
+        </LocaleContext.Provider>
       </>
     );
   }
 
   return (
     <>
-      <Navigation logout={onLogout} />
-      <main>
-        <Routes>
-          <Route path={PATHS.HOME} element={<HomePage />} />
-          <Route path={PATHS.NOTE_DETAIL} element={<DetailPage />} />
-          <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
-          <Route path={PATHS.ARSIP} element={<ArsipPage />} />
-          {/* <Route path={PATHS.NOT_FOUND} element={<NotFoundPage />} /> */}
-        </Routes>
-      </main>
+      <LocaleContext.Provider value={localeContextValue}>
+        <Navigation logout={onLogout} />
+        <main>
+          <Routes>
+            <Route path={PATHS.HOME} element={<HomePage />} />
+            <Route path={PATHS.NOTE_DETAIL} element={<DetailPage />} />
+            <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
+            <Route path={PATHS.ARSIP} element={<ArsipPage />} />
+          </Routes>
+        </main>
+      </LocaleContext.Provider>
     </>
   );
 };

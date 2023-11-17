@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NoteList from "../components/NoteList";
 import AddButton from "../components/AddButton";
 import SearchBar from "../components/SearchBar";
@@ -6,8 +6,10 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getArchivedNotes } from "../utils/network-data";
 import useLoading from "../hooks/useLoading";
+import LocaleContext from "../contexts/LocaleContext";
 
 const ArsipPage = () => {
+  const { locale } = useContext(LocaleContext);
   const [loading, setLoading] = useLoading();
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
@@ -49,7 +51,7 @@ const ArsipPage = () => {
     <section>
       <div className="flex-grow flex-shrink overflow-y-auto p-4">
         <h4 className="text-3xl font-bold max-w-screen-xl mx-auto py-2">
-          Catatan Arsip
+          {locale === "en" ? "Archive Notes" : "Catatan Arsip"}
         </h4>
         <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
         <NoteList notes={filteredNotes} />

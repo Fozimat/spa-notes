@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import useInput from "../hooks/useInput";
+import LocaleContext from "../contexts/LocaleContext";
 
 const LoginInput = ({ login }) => {
+  const { locale } = useContext(LocaleContext);
   const [email, handleEmailChange] = useInput("");
   const [password, handlePasswordChange] = useInput("");
 
@@ -16,7 +18,7 @@ const LoginInput = ({ login }) => {
   return (
     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
       <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-        Login
+        {locale === "en" ? "Login" : "Masuk"}
       </h1>
       <form
         className="space-y-4 md:space-y-6"
@@ -63,15 +65,15 @@ const LoginInput = ({ login }) => {
           type="submit"
           className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Sign in
+          {locale === "en" ? "Login" : "Masuk"}
         </button>
         <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
-          Don’t have an account yet?
+          {locale === "en" ? "Don't have an account yet?" : "Belum punya akun?"}
           <Link
             to="/register"
             className="font-medium text-blue-600 hover:underline dark:text-blue-500"
           >
-            Sign up
+            {locale === "en" ? "Register" : "Daftar"}
           </Link>
         </p>
       </form>
