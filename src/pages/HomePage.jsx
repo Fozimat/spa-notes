@@ -5,8 +5,10 @@ import SearchBar from "../components/SearchBar";
 import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getActiveNotes } from "../utils/network-data";
+import useLoading from "../hooks/useLoading";
 
 const HomePage = () => {
+  const [loading, setLoading] = useLoading();
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
   const [keyword, setKeyword] = useState(() => {
@@ -18,6 +20,7 @@ const HomePage = () => {
       try {
         const { data } = await getActiveNotes();
         setNotes(data);
+        setLoading(false);
       } catch (e) {
         console.error("Error: ", e);
       }
@@ -33,6 +36,14 @@ const HomePage = () => {
   const filteredNotes = notes.filter((note) => {
     return note.title.toLowerCase().includes(keyword.toLowerCase());
   });
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-solid h-16 w-16"></div>
+      </div>
+    );
+  }
 
   return (
     <section>
