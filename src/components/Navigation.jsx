@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Navigation = () => {
+const Navigation = ({ logout }) => {
   return (
     <nav className="bg-blue-500 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -37,10 +38,10 @@ const Navigation = () => {
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <Link
-                to="/arsip"
+                onClick={logout}
                 className="text-gray-100 hover:text-gray-300 md:p-0 dark:text-white dark:hover:text-red-500"
               >
-                Arsip
+                Logout
               </Link>
             </li>
           </ul>
@@ -48,6 +49,10 @@ const Navigation = () => {
       </div>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  logout: PropTypes.func.isRequired,
 };
 
 export default Navigation;

@@ -1,4 +1,7 @@
 const PATHS = {
+    ASTERISK: '/*',
+    LOGIN: '/login',
+    REGISTER: '/register',
     HOME: '/',
     NOTE_DETAIL: '/note/:id',
     ADD_NOTE: '/note/new',
