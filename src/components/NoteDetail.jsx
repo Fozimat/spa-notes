@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { showFormattedDate } from "../utils/index";
 import PropTypes from "prop-types";
+import ThemeContext from "../contexts/ThemeContext";
+import { getContainerClass, getTextClass } from "../utils/theme-helper";
 
 const NoteDetail = ({ title, body, createdAt }) => {
+  const { theme } = useContext(ThemeContext);
+  const containerClass = getContainerClass(theme);
+  const textClass = getTextClass(theme);
+
   return (
-    <div className="max-w-screen-xl mx-auto mt-4 py-4">
-      <div className="bg-white p-4 rounded-md shadow-md w-full">
-        <h2 className="text-xl font-semibold mb-2">{title}</h2>
-        <p className="text-gray-500 text-sm mb-2">
+    <div className={`max-w-screen-xl mx-auto py-10 ${containerClass}`}>
+      <div className="p-4 rounded-md shadow-md w-full">
+        <h2 className={`text-xl font-semibold mb-2 ${textClass}`}>{title}</h2>
+        <p className={`text-sm mb-2 ${textClass}`}>
           {showFormattedDate(createdAt)}
         </p>
-        <p className="text-gray-800">{body}</p>
+        <p className={textClass}>{body}</p>
       </div>
     </div>
   );

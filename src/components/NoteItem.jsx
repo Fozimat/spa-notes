@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { showFormattedDate } from "../utils/index";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import ThemeContext from "../contexts/ThemeContext";
+import { getContainerClass, getTextClass } from "../utils/theme-helper";
 
 const NoteItem = ({ id, title, body, createdAt }) => {
+  const { theme } = useContext(ThemeContext);
+  const containerClass = getContainerClass(theme);
+  const textClass = getTextClass(theme);
+
   return (
-    <div className="bg-white p-4 rounded-md shadow-md">
+    <div className={`p-4 rounded-md shadow-md ${containerClass}`}>
       <h2 className="text-xl font-semibold mb-2">
         <Link to={`/notes/${id}`}>{title}</Link>
       </h2>
       <p className="text-gray-500 text-sm mb-2">
         {showFormattedDate(createdAt)}
       </p>
-      <p className="text-gray-800">{body}</p>
+      <p className={textClass}>{body}</p>
     </div>
   );
 };

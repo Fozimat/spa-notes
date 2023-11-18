@@ -7,9 +7,13 @@ import PropTypes from "prop-types";
 import { getActiveNotes } from "../utils/network-data";
 import useLoading from "../hooks/useLoading";
 import LocaleContext from "../contexts/LocaleContext";
+import ThemeContext from "../contexts/ThemeContext";
+import { getContainerClass } from "../utils/theme-helper";
 
 const HomePage = () => {
   const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
+  const containerClass = getContainerClass(theme);
   const [loading, setLoading] = useLoading();
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
@@ -48,15 +52,15 @@ const HomePage = () => {
   }
 
   return (
-    <section>
-      <div className="flex-grow flex-shrink overflow-y-auto p-4">
-        <h4 className="text-3xl font-bold max-w-screen-xl mx-auto py-2">
-          {locale === "en" ? "Active Notes" : "Catatan Aktif"}
-        </h4>
-        <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
-        <NoteList notes={filteredNotes} />
-        <AddButton />
-      </div>
+    <section
+      className={`flex-grow flex-shrink overflow-y-auto p-4 h-screen ${containerClass}`}
+    >
+      <h4 className="text-3xl font-bold max-w-screen-xl mx-auto py-2">
+        {locale === "en" ? "Active Notes" : "Catatan Aktif"}
+      </h4>
+      <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
+      <NoteList notes={filteredNotes} />
+      <AddButton />
     </section>
   );
 };

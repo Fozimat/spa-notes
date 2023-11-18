@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import LocaleContext from "../contexts/LocaleContext";
-import { FaGoogle } from "react-icons/fa6";
+import ThemeContext from "../contexts/ThemeContext";
+import { FaGoogle, FaRegLightbulb, FaLightbulb } from "react-icons/fa6";
 
 const Navigation = ({ logout }) => {
   const { locale, toggleLocale } = useContext(LocaleContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <nav className="bg-blue-500 border-gray-200 dark:bg-gray-900">
@@ -42,6 +44,17 @@ const Navigation = ({ logout }) => {
 
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <Link
+                onClick={toggleTheme}
+                className="flex items-center text-red-100 hover:text-red-300 md:p-0 dark:text-white dark:hover:text-red-500"
+              >
+                <span className="mr-2">
+                  {theme === "light" ? "Light" : "Dark"}
+                </span>
+                {theme === "light" ? <FaRegLightbulb /> : <FaLightbulb />}
+              </Link>
+            </li>
             <li>
               <Link
                 onClick={toggleLocale}

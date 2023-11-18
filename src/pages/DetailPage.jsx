@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getNote,
@@ -11,9 +11,15 @@ import NotFoundPage from "../components/NotFoundPage";
 import DeleteButton from "../components/DeleteButton";
 import ArsipButton from "../components/ArsipButton";
 import CancelArsipButton from "../components/CancelArsipButton";
+import ThemeContext from "../contexts/ThemeContext";
+import { getContainerClass, getTextClass } from "../utils/theme-helper";
 import useLoading from "../hooks/useLoading";
 
 const DetailPage = () => {
+  const { theme } = useContext(ThemeContext);
+  const containerClass = getContainerClass(theme);
+  const textClass = getTextClass(theme);
+
   const [note, setNote] = useState({});
   const [loading, setLoading] = useLoading();
 
@@ -81,7 +87,7 @@ const DetailPage = () => {
   }
 
   return (
-    <>
+    <div className={`h-screen ${containerClass} ${textClass}`}>
       <NoteDetail {...note} />
       <DeleteButton onDelete={onDeleteHandler} />
       {note.archived ? (
@@ -89,7 +95,7 @@ const DetailPage = () => {
       ) : (
         <ArsipButton onArsip={onArsipHandler} />
       )}
-    </>
+    </div>
   );
 };
 
