@@ -16,6 +16,7 @@ import DetailPage from "../pages/DetailPage";
 import ArsipPage from "../pages/ArsipPage.jsx";
 import LocaleContext from "../contexts/LocaleContext.js";
 import ThemeContext from "../contexts/ThemeContext.js";
+import NotFoundPage from "./NotFoundPage.jsx";
 
 const NotesApp = () => {
   const [locale, setLocale] = useState(() => getItemStorage("locale") || "en");
@@ -112,6 +113,7 @@ const NotesApp = () => {
               <Route path={PATHS.NOTE_DETAIL} element={<DetailPage />} />
               <Route path={PATHS.ADD_NOTE} element={<AddPage />} />
               <Route path={PATHS.ARSIP} element={<ArsipPage />} />
+              <Route path={PATHS.ASTERISK} element={<NotFoundPage />} />
             </Routes>
           </main>
         </LocaleContext.Provider>
