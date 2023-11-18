@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import useInput from "../hooks/useInput";
 import ThemeContext from "../contexts/ThemeContext";
+import LocaleContext from "../contexts/LocaleContext";
 import { getContainerClass, getTextClass } from "../utils/theme-helper";
 
 const NoteInput = ({ addNote }) => {
+  const { locale } = useContext(LocaleContext);
   const { theme } = useContext(ThemeContext);
   const containerClass = getContainerClass(theme);
   const textClass = getTextClass(theme);
@@ -25,20 +27,22 @@ const NoteInput = ({ addNote }) => {
         onSubmit={onSubmitHandler}
       >
         <h2 className={`text-xl font-semibold mb-4 ${textClass}`}>
-          Tambah Catatan Baru
+          {locale === "en" ? "Add New Note" : "Tambah Catatan Baru"}
         </h2>
         <div className="mb-4">
           <label
             htmlFor="title"
             className={`block text-sm font-medium ${textClass}`}
           >
-            Judul:
+            {locale === "en" ? "Title" : "Judul"}
           </label>
           <input
             type="text"
             id="title"
             className={`mt-1 p-2 border w-full rounded-md border-gray-300 focus:outline-none focus:border-blue-500 ${textClass}`}
-            placeholder="Masukkan judul..."
+            placeholder={
+              locale === "en" ? "Enter title..." : "Masukkan judul..."
+            }
             value={title}
             onChange={handleTitleChange}
           />
@@ -48,12 +52,12 @@ const NoteInput = ({ addNote }) => {
             htmlFor="body"
             className={`block text-sm font-medium ${textClass}`}
           >
-            Isi:
+            {locale === "en" ? "Body" : "Isi"}
           </label>
           <textarea
             id="body"
             className={`mt-1 p-2 border w-full rounded-md border-gray-300 focus:outline-none focus:border-blue-500 ${textClass}`}
-            placeholder="Masukkan isi..."
+            placeholder={locale === "en" ? "Enter body..." : "Masukkan isi..."}
             value={body}
             onChange={handleBodyChange}
           />
@@ -62,7 +66,7 @@ const NoteInput = ({ addNote }) => {
           type="submit"
           className={`bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 ${textClass}`}
         >
-          Simpan
+          {locale === "en" ? "Save" : "Simpan"}
         </button>
       </form>
     </div>
